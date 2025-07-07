@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion - Chatbot{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .login-card {
+        max-width: 450px;
+        width: 100%;
+        margin: 0 1rem;
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .login-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .form-group i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #667eea;
+        z-index: 1;
+    }
+
+    .form-control-icon {
+        padding-left: 3rem;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .password-toggle:hover {
+        color: #667eea;
+    }
+
+    .forgot-password {
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+
+    .forgot-password a {
+        color: #667eea;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+
+    .login-button {
+        width: 100%;
+        margin: 1.5rem 0;
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e1e5e9;
+    }
+
+    .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e1e5e9;
+    }
+
+    .signup-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+
+    .social-login {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 0.75rem;
+        border: 2px solid #e1e5e9;
+        background: white;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: #333;
+    }
+
+    .social-btn:hover {
+        border-color: #667eea;
+        transform: translateY(-1px);
+    }
+
+    .google-btn:hover {
+        border-color: #db4437;
+    }
+
+    .facebook-btn:hover {
+        border-color: #4267B2;
+    }
+
+    @media (max-width: 768px) {
+        .login-card {
+            margin: 0 0.5rem;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+        }
+        
+        .social-login {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card card fade-in-up">
+        <div class="login-header">
+            <h1 class="login-title">
+                <i class="fas fa-robot" style="color: #667eea;"></i>
+                Connexion
+            </h1>
+            <p class="login-subtitle">Connectez-vous à votre compte pour accéder au chatbot</p>
+        </div>
+
+        <form method="POST" id="loginForm">
+            <div class="form-group">
+                <label for="email">Adresse email</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       class="form-control form-control-icon" 
+                       placeholder="votre@email.com"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       class="form-control form-control-icon" 
+                       placeholder="Votre mot de passe"
+                       required>
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <i class="fas fa-eye" id="passwordIcon"></i>
+                </button>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" onclick="showForgotPassword()">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary login-button">
+                <i class="fas fa-sign-in-alt"></i>
+                Se connecter
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>ou connectez-vous avec</span>
+        </div>
+
+        <div class="social-login">
+            <a href="#" class="social-btn google-btn" onclick="socialLogin('google')">
+                <i class="fab fa-google"></i>
+                Google
+            </a>
+            <a href="#" class="social-btn facebook-btn" onclick="socialLogin('facebook')">
+                <i class="fab fa-facebook-f"></i>
+                Facebook
+            </a>
+        </div>
+
+        <div class="signup-link">
+            <p>Vous n'avez pas encore de compte ? 
+                <a href="/signup">Créer un compte</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.className = 'fas fa-eye';
+        }
+    }
+
+    function showForgotPassword() {
+        alert('Fonctionnalité de récupération de mot de passe à implémenter');
+    }
+
+    function socialLogin(provider) {
+        alert(`Connexion avec ${provider} à implémenter`);
+    }
+
+    // Animation du formulaire
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const button = document.querySelector('.login-button');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+        button.disabled = true;
+        
+        // Simulation de la connexion
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.disabled = false;
+            
+            // Ici vous pouvez ajouter la logique de connexion réelle
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                // Redirection vers le tableau de bord ou la page principale
+                window.location.href = '/';
+            }
+        }, 2000);
+    });
+
+    // Animation des champs de saisie
+    document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    });
+</script>
+{% endblock %}
+
