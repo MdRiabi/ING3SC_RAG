@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Chatbot{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="fade-in-up">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">Bienvenue sur notre Chatbot</h1>
+        <p class="hero-subtitle">
+            Découvrez une nouvelle façon d'interagir avec l'intelligence artificielle. 
+            Notre chatbot avancé est là pour vous aider 24h/24 et 7j/7.
+        </p>
+        <div class="hero-buttons">
+            <a href="/signup" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Commencer maintenant
+            </a>
+            <a href="/login" class="btn btn-secondary">
+                <i class="fas fa-sign-in-alt"></i> Se connecter
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="card">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #333;">
+                Pourquoi choisir notre Chatbot ?
+            </h2>
+            <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
+                Découvrez les fonctionnalités qui font de notre chatbot un assistant exceptionnel
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">Intelligence Avancée</h3>
+                    <p class="feature-description">
+                        Propulsé par des algorithmes d'IA de pointe, notre chatbot comprend 
+                        le contexte et fournit des réponses pertinentes et personnalisées.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Disponible 24/7</h3>
+                    <p class="feature-description">
+                        Obtenez de l'aide à tout moment, jour et nuit. Notre chatbot 
+                        ne dort jamais et est toujours prêt à vous assister.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Sécurisé et Privé</h3>
+                    <p class="feature-description">
+                        Vos conversations sont protégées par un chiffrement de bout en bout. 
+                        Votre vie privée est notre priorité absolue.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title">Multilingue</h3>
+                    <p class="feature-description">
+                        Communiquez dans votre langue préférée. Notre chatbot 
+                        supporte de nombreuses langues pour une expérience globale.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Responsive</h3>
+                    <p class="feature-description">
+                        Accédez à notre chatbot depuis n'importe quel appareil : 
+                        ordinateur, tablette ou smartphone, l'expérience reste optimale.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Réponses Rapides</h3>
+                    <p class="feature-description">
+                        Obtenez des réponses instantanées grâce à notre infrastructure 
+                        optimisée pour la vitesse et la performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <h2 class="cta-title">Prêt à commencer ?</h2>
+        <p class="cta-description">
+            Rejoignez des milliers d'utilisateurs qui font déjà confiance à notre chatbot
+        </p>
+        <a href="/signup" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">
+            <i class="fas fa-arrow-right"></i> Créer un compte gratuitement
+        </a>
+    </section>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
+
+
