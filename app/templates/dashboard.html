@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Chatbot{% endblock %}
+
+<!-- filepath: d:\TEKUP\Cours\2iem SEMESTRE\GenAI\Projects\ING3SC_RAG\app\templates\login.html -->
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="dashboard-container fade-in-up">
+    <!-- Informations utilisateur -->
+    <div class="user-info">
+        <h3><i class="fas fa-user-circle"></i> Informations du compte</h3>
+        <div class="user-details">
+            <div class="user-detail">
+                <i class="fas fa-user"></i>
+                <span>{{ user.first_name }} {{ user.last_name }}</span>
+            </div>
+            <div class="user-detail">
+                <i class="fas fa-at"></i>
+                <span>{{ user.username }}</span>
+            </div>
+            <div class="user-detail">
+                <i class="fas fa-envelope"></i>
+                <span>{{ user.email }}</span>
+            </div>
+            <div class="user-detail">
+                <i class="fas fa-calendar"></i>
+                <span>Membre depuis {{ user.created_at.strftime('%d/%m/%Y') if user.created_at else 'N/A' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section de bienvenue -->
+    <div class="welcome-section">
+        <h1 class="welcome-title">Bienvenue, {{ user.first_name }} !</h1>
+        <p class="welcome-subtitle">
+            Votre tableau de bord personnel pour interagir avec notre chatbot intelligent
+        </p>
+    </div>
+
+    <!-- Grille des fonctionnalités -->
+    <div class="dashboard-grid">
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="card-title">Nouvelle conversation</h3>
+            <p class="card-description">
+                Commencez une nouvelle conversation avec notre chatbot intelligent. 
+                Posez vos questions et obtenez des réponses instantanées.
+            </p>
+            <a href="#" class="card-button" onclick="startNewChat()">
+                <i class="fas fa-play"></i> Commencer
+            </a>
+        </div>
+
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <h3 class="card-title">Historique des conversations</h3>
+            <p class="card-description">
+                Consultez l'historique de toutes vos conversations précédentes 
+                avec le chatbot et reprenez où vous vous êtes arrêté.
+            </p>
+            <a href="#" class="card-button" onclick="viewHistory()">
+                <i class="fas fa-list"></i> Voir l'historique
+            </a>
+        </div>
+
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <h3 class="card-title">Paramètres</h3>
+            <p class="card-description">
+                Personnalisez votre expérience en modifiant vos préférences, 
+                votre profil et les paramètres du chatbot.
+            </p>
+            <a href="/profile" class="card-button">
+                <i class="fas fa-edit"></i> Configurer
+            </a>
+        </div>
+
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h3 class="card-title">Aide et support</h3>
+            <p class="card-description">
+                Besoin d'aide ? Consultez notre documentation ou contactez 
+                notre équipe de support pour obtenir de l'assistance.
+            </p>
+            <a href="#" class="card-button" onclick="showHelp()">
+                <i class="fas fa-life-ring"></i> Obtenir de l'aide
+            </a>
+        </div>
+
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="card-title">Statistiques</h3>
+            <p class="card-description">
+                Découvrez vos statistiques d'utilisation, le nombre de conversations 
+                et vos sujets de discussion favoris.
+            </p>
+            <a href="#" class="card-button" onclick="viewStats()">
+                <i class="fas fa-chart-bar"></i> Voir les stats
+            </a>
+        </div>
+
+        <div class="dashboard-card card">
+            <div class="card-icon">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <h3 class="card-title">Partager</h3>
+            <p class="card-description">
+                Partagez votre expérience avec vos amis et invitez-les 
+                à découvrir notre chatbot intelligent.
+            </p>
+            <a href="#" class="card-button" onclick="shareApp()">
+                <i class="fas fa-share"></i> Partager
+            </a>
+        </div>
+    </div>
+
+    <!-- Section de déconnexion -->
+    <div class="logout-section">
+        <a href="/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Se déconnecter
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+<!-- filepath: d:\TEKUP\Cours\2iem SEMESTRE\GenAI\Projects\ING3SC_RAG\app\templates\login.html -->
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
+
+
+
