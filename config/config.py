@@ -1,11 +1,15 @@
 import os
 from dotenv import load_dotenv
+import sqlite3
 
 load_dotenv()
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'instance', 'chatbot.db')
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///chatbot.db'
+    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Upload configuration
@@ -24,3 +28,7 @@ class Config:
     # Supported languages
     SUPPORTED_LANGUAGES = ['fr', 'en']
     DEFAULT_LANGUAGE = 'fr'
+
+conn = sqlite3.connect('instance/chatbot.db')
+print("OK")
+conn.close()
