@@ -18,8 +18,13 @@
                 </a>
                 <ul class="nav-links">
                     <li><a href="/">Accueil</a></li>
-                    <li><a href="/login">Connexion</a></li>
-                    <li><a href="/signup">Inscription</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.profile') }}">Profil</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="/login">Connexion</a></li>
+                        <li><a href="/signup">Inscription</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

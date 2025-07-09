@@ -1,0 +1,231 @@
+
+    .signup-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .signup-card {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 1rem;
+    }
+
+    .signup-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .signup-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .signup-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .form-group i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #667eea;
+        z-index: 1;
+    }
+
+    .form-control-icon {
+        padding-left: 3rem;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .password-toggle:hover {
+        color: #667eea;
+    }
+
+    .password-strength {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .strength-bar {
+        height: 4px;
+        background: #e1e5e9;
+        border-radius: 2px;
+        margin: 0.5rem 0;
+        overflow: hidden;
+    }
+
+    .strength-fill {
+        height: 100%;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .strength-weak { background: #dc3545; width: 25%; }
+    .strength-fair { background: #ffc107; width: 50%; }
+    .strength-good { background: #28a745; width: 75%; }
+    .strength-strong { background: #007bff; width: 100%; }
+
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin-top: 0.2rem;
+    }
+
+    .checkbox-group label {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #666;
+    }
+
+    .checkbox-group a {
+        color: #667eea;
+        text-decoration: none;
+    }
+
+    .checkbox-group a:hover {
+        text-decoration: underline;
+    }
+
+    .signup-button {
+        width: 100%;
+        margin: 1.5rem 0;
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e1e5e9;
+    }
+
+    .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e1e5e9;
+    }
+
+    .login-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    .social-signup {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 0.75rem;
+        border: 2px solid #e1e5e9;
+        background: white;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: #333;
+    }
+
+    .social-btn:hover {
+        border-color: #667eea;
+        transform: translateY(-1px);
+    }
+
+    .google-btn:hover {
+        border-color: #db4437;
+    }
+
+    .facebook-btn:hover {
+        border-color: #4267B2;
+    }
+
+    .form-validation {
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+        color: #dc3545;
+        display: none;
+    }
+
+    .form-validation.show {
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .signup-card {
+            margin: 0 0.5rem;
+        }
+        
+        .signup-title {
+            font-size: 2rem;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .social-signup {
+            flex-direction: column;
+        }
+    }

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Profil - {{ user.get_full_name() }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card card fade-in-up">
+        <div class="profile-header">
+            <h1 class="profile-title">
+                <i class="fas fa-user-circle" style="color: #667eea;"></i>
+                Mon Profil
+            </h1>
+            <p class="profile-subtitle">Gérez vos informations personnelles</p>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h3>Informations personnelles</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Nom complet</label>
+                        <p>{{ user.get_full_name() }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Email</label>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Statut du compte</label>
+                        <p>
+                            {% if user.is_active %}
+                                <span class="status-badge active">Actif</span>
+                            {% else %}
+                                <span class="status-badge inactive">Inactif</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <label>Vérification</label>
+                        <p>
+                            {% if user.is_verified %}
+                                <span class="status-badge verified">Vérifié</span>
+                            {% else %}
+                                <span class="status-badge unverified">Non vérifié</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <label>Membre depuis</label>
+                        <p>{{ user.created_at.strftime('%d/%m/%Y') }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Dernière connexion</label>
+                        <p>
+                            {% if user.last_login %}
+                                {{ user.last_login.strftime('%d/%m/%Y à %H:%M') }}
+                            {% else %}
+                                Jamais
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="{{ url_for('auth.change_password') }}" class="btn btn-secondary">
+                    <i class="fas fa-key"></i>
+                    Changer le mot de passe
+                </a>
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %} 

@@ -5,6 +5,7 @@ from config.config import Config
 from app.routes import main
 
 
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 
@@ -36,8 +37,14 @@ def create_app():
     
     return app
 
-from .models import User  # adapte ce chemin selon ton projet
+from .models import User, UserSession  # adapte ce chemin selon ton projet
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    from flask import flash, redirect, url_for
+    flash('Vous devez être connecté pour accéder à cette page.', 'warning')
+    return redirect(url_for('auth.login'))

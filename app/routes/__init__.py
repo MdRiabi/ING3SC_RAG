@@ -12,3 +12,10 @@ def index():
 @main.route('/login')
 def login_redirect():
     return redirect(url_for('auth.login'))
+
+
+
+
+@main.route('/signup')
+def signup_redirect():
+    return redirect(url_for('auth.register'))
