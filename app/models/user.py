@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import uuid
 
-class User(db.Model, UserMixin):
+class user(db.Model, UserMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     sessions = db.relationship('UserSession', backref='user', lazy=True, cascade='all, delete-orphan')
     
     def __init__(self, **kwargs):
-        super(User, self).__init__(**kwargs)
+        super(user, self).__init__(**kwargs)
         if 'password' in kwargs:
             self.set_password(kwargs['password'])
     
