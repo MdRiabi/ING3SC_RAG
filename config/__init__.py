@@ -27,4 +27,6 @@ def create_app():
     with app.app_context():
         db.create_all()
     
+    print("Base utilisée :", db.engine.url)
+    
     return app

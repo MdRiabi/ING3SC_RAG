@@ -4,6 +4,7 @@ from app.services.auth_service import AuthService
 from app.utils.decorators import login_required_custom, rate_limit
 import json
 
+# Déclaration unique du Blueprint
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -18,27 +19,38 @@ def login():
         email = data.get('email', '').strip()
         password = data.get('password', '')
         remember_me = data.get('remember_me', False)
+        # Forcer remember_me à un booléen
+        if isinstance(remember_me, str):
+            remember_me = remember_me.lower() in ['true', 'on', '1', 'yes']
+        else:
+            remember_me = bool(remember_me)
         
         if not email or not password:
             flash('Email et mot de passe requis', 'error')
             return render_template('login.html')
         
         # Authentifier l'utilisateur
-        auth_result = AuthService.authenticate_user(email, password, bool(remember_me))
+        result = AuthService.authenticate_user(email, password, remember_me)
         
-        if len(auth_result) == 3 and auth_result[0]:  # success avec user et session
-            user, session = auth_result[1], auth_result[2]
-            login_user(user, remember=bool(remember_me))
-            
+        if isinstance(result, tuple) and len(result) == 3:
+            success, user, session = result
+        else:
+            success, message = result
+            user = session = None
+        
+        if success:
+            login_user(user, remember=remember_me)
             # Créer une réponse avec le cookie de session
             response = make_response(redirect(url_for('main.index')))
             if session:
                 response.set_cookie('session_id', session.session_id, max_age=30*24*60*60 if remember_me else 24*60*60)
-            
-            flash(f'Bienvenue {user.get_full_name()} !', 'success')
+            if user:
+                flash(f'Bienvenue {user.get_full_name()} !', 'success')
+            else:
+                flash('Bienvenue !', 'success')
             return response
         else:
-            flash(str(auth_result[1]), 'error')
+            flash(message, 'error')
     
     return render_template('login.html')
 

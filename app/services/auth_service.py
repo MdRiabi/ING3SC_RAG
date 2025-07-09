@@ -1,7 +1,7 @@
 from app import db
 from app.models import User, UserSession
 from flask import request, current_app
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import re
 import secrets
 import string
@@ -172,9 +172,9 @@ class AuthService:
         """Nettoie les anciennes sessions"""
         try:
             # Supprimer les sessions inactives depuis plus de 7 jours
-            cutoff_date = datetime.utcnow() - timedelta(days=7)
+            cutoff_date = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=7)
             old_sessions = UserSession.query.filter(
-                UserSession.last_activity < cutoff_date
+                getattr(UserSession, "last_activity") < cutoff_date
             ).all()
             
             for session in old_sessions:

@@ -1,5 +1,6 @@
 from app import db
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from sqlalchemy import or_, func, false
 import uuid
 
 class UserSession(db.Model):
@@ -44,7 +45,10 @@ class UserSession(db.Model):
     def cleanup_expired_sessions(cls):
         """Nettoie les sessions expirées"""
         expired_sessions = cls.query.filter(
-            (cls.expires_at < datetime.utcnow()) | (cls.is_active == False)
+            or_(
+                cls.expires_at < func.now(),
+                getattr(cls, "is_active") == False
+            )
         ).all()
         
         for session in expired_sessions:
@@ -54,4 +58,4 @@ class UserSession(db.Model):
         return len(expired_sessions)
     
     def __repr__(self):
-        return f'<UserSession {self.session_id} for user {self.user_id}>' 
+        return f'<UserSession {self.session_id} for user {self.user_id}>'
