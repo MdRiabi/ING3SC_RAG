@@ -59,8 +59,8 @@ class AuthService:
                 first_name=first_name.strip(),
                 last_name=last_name.strip(),
                 email=email.lower().strip(),
-                password=password
             )
+            user.set_password(password)
             
             db.session.add(user)
             db.session.commit()
